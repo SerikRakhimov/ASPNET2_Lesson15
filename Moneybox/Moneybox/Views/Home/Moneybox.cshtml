@@ -1,0 +1,41 @@
+﻿<h2>Копилка</h2>
+<h4 id="info"></h4>
+<h3>В копилке: </h3><h3 id="sumMain"></h3><br>
+<form action="/">
+Сумма в копилку = <input type="number" id="sum" name="Sum" value="0" />
+<input type="button" id="btn-submit" value="Добавить" />
+</form>
+
+@section Scripts {
+    <script type="text/javascript">
+        $("#btn-submit").on("click", function () {
+
+            var sum = $("#sum").val();
+
+            var mydata = new Object();
+            mydata.sum = sum;
+
+            $.post("/Home/Moneybox", mydata, function (message) {
+
+                $("#info").text(message);
+                $.get
+                    ("/Home/GetSumItogo", null, function (moneybox) {
+                        $("#sumMain").text(moneybox);
+                    }
+                    )
+
+            });
+
+        }
+        );
+
+        $(document).ready(function () {
+            $.get
+                ("/Home/GetSumItogo", null, function (moneybox) {
+                    $("#sumMain").text(moneybox);
+                }
+                )
+        });
+
+    </script>
+}
